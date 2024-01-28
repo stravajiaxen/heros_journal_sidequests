@@ -12,7 +12,7 @@ def random_card(category=None):
         valid_cards = my_cards[my_cards["Category"] == category]
     else:
         valid_cards = my_cards
-    quest = valid_cards.sample(n=1).iloc[0].to_dict()
+    quest = valid_cards.sample(n=1).iloc[0].to_dict()  # Choose a random quest. Turn it into a dict
 
     # Get Quest Details
     action = quest["Side Quest"]
@@ -26,7 +26,12 @@ def random_card(category=None):
     st.markdown(f"*--{author}*")
 
 def main():
+    # Title
     st.title("Hero's Sidequests: Istoria Magic Academy")
+
+    # Display the sidebar
+    # Streamlit forces you to store the choice then display it outside of the
+    # context manager because it comingles code structure with display.
     categories = [
         "Learn", "Create", "Rest", "Go"
     ]
@@ -51,8 +56,9 @@ def main():
             unsafe_allow_html=True
         )
 
+    # Display the appropriate quest based on whichever button was clicked
     if choice is None:
-        st.write("Choose a card!")
+        st.write("Choose a Quest!")
     elif choice == "All":
         st.write(my_cards)
     elif choice == "Random":
